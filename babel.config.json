@@ -1,0 +1,57 @@
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "loose": true,
+      "targets": {
+        "node": "18.15.0"
+      }
+    }],
+    "@babel/preset-react",
+    "@babel/preset-typescript"
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-proposal-throw-expressions",
+    "@babel/proposal-class-properties",
+    ["tsconfig-paths-module-resolver",
+      {
+        "transformFunctions": [
+          "require",
+          "require.resolve",
+          "System.import",
+          "jest.genMockFromModule",
+          "jest.mock",
+          "jest.unmock",
+          "jest.doMock",
+          "jest.dontMock"
+        ]
+      }],
+    "css-modules-transform",
+    [
+      "babel-plugin-styled-components",
+      {
+        "ssr": true,
+        "displayName": true,
+        "preprocess": false
+      }
+    ],
+    [
+      "file-loader",
+      {
+        "name": "[hash].[ext]",
+        "extensions": [
+          "png",
+          "jpg",
+          "jpeg",
+          "gif",
+          "svg"
+        ],
+        "publicPath": "/client/",
+        "outputPath": "/dist/client/",
+        "context": "",
+        "limit": 0
+      }
+    ]
+  ],
+  "sourceMaps": "both"
+}

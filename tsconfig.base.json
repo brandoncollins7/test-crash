@@ -1,0 +1,77 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "incremental": true,
+    "paths": {
+      "@frnt-libs/microservice-core/lib/*": [
+        "libs/legacy/microservice-core/src/lib/*"
+      ],
+      "@frnt-libs/rabbitmq-core/lib/*": ["libs/legacy/rabbitmq-core/src/lib/*"],
+      "@frnt-libs/seido-bot-core/lib/*": [
+        "libs/legacy/seido-bot-core/src/lib/*"
+      ],
+      "@frnt-libs/utils/lib/*": ["libs/legacy/utils/src/lib/*"],
+      "@frnt/account-ui": ["libs/ui/account-ui/src/index.js"],
+      "@frnt/apps/lending-api/shared": [
+        "libs/apps/lending-api/shared/src/index.ts"
+      ],
+      "@frnt/apps/lending-api/support": [
+        "libs/apps/lending-api/support/src/index.ts"
+      ],
+      "@frnt/base": ["libs/ui/base-ui/src/index.js"],
+      "@frnt/base/*": ["libs/ui/base-ui/src/lib/*"],
+      "@frnt/email-api/emails": ["libs/apps/email-api/emails/src/index.ts"],
+      "@frnt/email-api/templates": ["libs/apps/email-api/templates/src"],
+      "@frnt/lending-api/models": ["libs/apps/lending-api/models/src/index.ts"],
+      "@frnt/lending-api/permissions": [
+        "libs/apps/lending-api/permissions/src/index.ts"
+      ],
+      "@frnt/market-data-ui": ["libs/ui/market-data-ui/src/index.js"],
+      "@frnt/nest/auth": ["libs/nest/auth/src"],
+      "@frnt/nest/features": ["libs/nest/features/src/index.ts"],
+      "@frnt/nest/microservice": ["libs/nest/microservice/src"],
+      "@frnt/nest/utils": ["libs/nest/utils/src"],
+      "@frnt/shared/brokers/rabbitmq/publishers": [
+        "libs/shared/brokers/rabbitmq/publishers/src/index.ts"
+      ],
+      "@frnt/shared/data-access/ms/api": [
+        "libs/shared/data-access/ms/api/src/index.ts"
+      ],
+      "@frnt/shared/data-access/ms/lending-api": [
+        "libs/shared/data-access/ms/lending-api/src/index.ts"
+      ],
+      "@frnt/shared/data-access/ms/core-api": [
+        "libs/shared/data-access/ms/core-api/src/index.ts"
+      ],
+      "@frnt/shared/util/errors": ["libs/shared/util/errors/src/index.ts"],
+      "@frnt/shared/util/finance": ["libs/shared/util/finance/src/index.ts"],
+      "@frnt/shared/util/formatting": [
+        "libs/shared/util/formatting/src/index.ts"
+      ],
+      "@frnt/shared/util/logging": ["libs/shared/util/logging/src/index.ts"],
+      "@frnt/shared/util/networking": [
+        "libs/shared/util/networking/src/index.ts"
+      ],
+      "@frnt/shared/util/permissions": [
+        "libs/shared/util/permissions/src/index.ts"
+      ],
+      "@frnt/trade-ui": ["libs/ui/trade-ui/src/index.js"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

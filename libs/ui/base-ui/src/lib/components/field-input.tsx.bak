@@ -1,0 +1,106 @@
+import React from 'react'
+import {Field, useFormikContext, FieldProps} from 'formik'
+import {FormControl, FormErrorMessage, FormLabel, Input, InputRightElement, NumberInput, InputGroup, NumberInputField, Select} from '@chakra-ui/react'
+import {NumericFormat, PatternFormat} from 'react-number-format'
+
+interface FieldInputProps {
+  name: string
+  label?: string
+  componentType: 'input' | 'select' | 'number-input' | 'phone-input'
+  options?: {value: string; label: string}[]
+  disabled?: boolean
+  handleBlur?: () => void
+  type?: string
+  readOnly?: boolean
+  inputRightElement?: React.ReactNode
+  // numberFormat is an object with the following properties: max,min
+  numberFormat?: {
+    max?: number
+    min?: number
+  }
+}
+
+export const FieldInput: React.FC<FieldInputProps> = ({name, label, componentType, options, type, inputRightElement, numberFormat, ...props}) => {
+  const {errors, touched, setFieldValue} = useFormikContext<any>()
+  return (
+    <FormControl isInvalid={!!(errors[name] && touched[name])} display="block" alignItems="center" gap={4}>
+      <FormLabel my={2} htmlFor={name}>
+        {label}
+      </FormLabel>
+      <Field name={name}>
+        {({field, form}: any) => (
+          <>
+            {componentType === 'input' && (
+              <InputGroup>
+                <Input type={type} {...field} />
+              </InputGroup>
+            )}
+            {componentType === 'phone-input' && (
+              <InputGroup>
+                <Input as={PatternFormat} format={'+# (###) ### ####'} allowEmptyFormatting mask="_" data-cy="phone" {...field} />
+                {inputRightElement && <InputRightElement width="4.5rem">{inputRightElement}</InputRightElement>}
+              </InputGroup>
+            )}
+
+            {componentType === 'number-input' && (
+              <InputGroup>
+                <Input
+                  as={NumericFormat}
+                  thousandSeparator=","
+                  decimalSeparator="."
+                  decimalScale={2}
+                  isAllowed={(values: any) => {
+                    let isValid = true
+                    if ((numberFormat?.max && values.floatValue > numberFormat.max) || (numberFormat?.min && values.floatValue < numberFormat?.min)) {
+                      isValid = false
+                    }
+
+                    return isValid
+                  }}
+                  {...field}
+                />
+                {inputRightElement && <InputRightElement width="4.5rem">{inputRightElement}</InputRightElement>}
+              </InputGroup>
+            )}
+            {componentType === 'select' && (
+              <Select {...field}>
+                <option></option>
+                {options?.map((option) => {
+                  return (
+                    <option key={`option-${option.value}`} value={option.value}>
+                      {option.label}
+                    </option>
+                  )
+                })}
+              </Select>
+            )}
+          </>
+        )}
+      </Field>
+      <FormErrorMessage>
+        <>{errors[name]}</>
+      </FormErrorMessage>
+    </FormControl>
+  )
+}
+
+interface FormikControlProps {
+  label?: string
+  name: string
+  children: React.ReactNode
+}
+
+export const FormikControl = ({label, name, children}: FormikControlProps) => {
+  const {errors, touched} = useFormikContext<any>()
+  return (
+    <FormControl isInvalid={!!(errors[name] && touched[name])} display="block" alignItems="center" gap={4}>
+      <FormLabel mb={0} htmlFor={name}>
+        {label}
+      </FormLabel>
+      {children}
+      <FormErrorMessage>
+        <>{errors[name]}</>
+      </FormErrorMessage>
+    </FormControl>
+  )
+}

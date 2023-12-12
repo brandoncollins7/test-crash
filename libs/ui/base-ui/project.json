@@ -1,0 +1,62 @@
+{
+  "name": "base-ui",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/ui/base-ui/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/ui/base-ui/**/*.js"]
+      }
+    },
+    "storybook": {
+      "executor": "@nx/storybook:storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "libs/ui/base-ui/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@nx/storybook:build",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/base-ui",
+        "configDir": "libs/ui/base-ui/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "defaultConfiguration": "development",
+      "options": {
+        "engine": "docker",
+        "file": "libs/ui/base-ui/Dockerfile.storybook",
+        "build-args": [],
+        "metadata": {
+          "images": [
+            "253453061666.dkr.ecr.ca-central-1.amazonaws.com/atlantic-dawn"
+          ]
+        }
+      },
+      "configurations": {
+        "development": {
+          "load": true
+        },
+        "production": {}
+      },
+      "dependsOn": ["build-storybook"]
+    }
+  },
+  "tags": ["has:storybook", "env:react"]
+}

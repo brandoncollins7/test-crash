@@ -1,0 +1,103 @@
+{
+  "root": true,
+  "ignorePatterns": ["**/public/**", "**/dist/**"],
+  "plugins": ["@nx", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@nx/react",
+    "plugin:@nx/react-typescript",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:storybook/recommended",
+    "prettier"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "no-throw-literal": "off",
+//    "@nx/enforce-module-boundaries": [
+//      "error",
+//      {
+//        "depConstraints": [
+//          {
+//            "sourceTag": "scope:shared",
+//            "onlyDependOnLibsWithTags": ["scope:shared"]
+//          },
+//          {
+//            "sourceTag": "env:node",
+//            "onlyDependOnLibsWithTags": ["env:node", "env:js"]
+//          },
+//          {
+//            "sourceTag": "framework:hapi",
+//            "onlyDependOnLibsWithTags": ["framework:hapi", "env:node", "env:js"]
+//          },
+//          {
+//            "sourceTag": "env:react",
+//            "onlyDependOnLibsWithTags": ["env:react", "env:js"]
+//          }
+//        ]
+//      }
+//    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "trailingComma": "none",
+        "bracketSpacing": false,
+        "import/no-extraneous-dependencies": [
+          "error",
+          {
+            "devDependencies": false,
+            "optionalDependencies": false,
+            "peerDependencies": false
+          }
+        ],
+        "htmlWhitespaceSensitivity": "ignore",
+        "jsxBracketSameLine": true,
+        "printWidth": 180,
+        "semi": false
+      }
+    ],
+    "react/jsx-first-prop-new-line": [1, "multiline"],
+    "@typescript-eslint/no-empty-function": 0,
+    "react/no-unescaped-entities": ["error", {"forbid": [">", "}"]}],
+    "import/no-extraneous-dependencies": 0
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-uses-react": "off",
+        "@typescript-eslint/no-empty-function": "off"
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nx/typescript"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nx/javascript"],
+      "rules": {}
+    },
+    {
+      "files": [
+        "**/test/**/*.js",
+        "*.spec.ts",
+        "*.spec.tsx",
+        "*.spec.js",
+        "*.spec.jsx"
+      ],
+      "env": {
+        "jest": true,
+        "mocha": true
+      },
+      "rules": {}
+    }
+  ]
+}

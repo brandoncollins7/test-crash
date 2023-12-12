@@ -1,0 +1,117 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "affected": {
+    "defaultBase": "beta"
+  },
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build", "prisma-generate"],
+      "inputs": ["production", "^production"],
+      "cache": true
+    },
+    "deploy": {
+      "inputs": [
+        "production",
+        "^production",
+        {
+          "externalDependencies": []
+        },
+        {
+          "env": "ENVIRONMENT"
+        }
+      ],
+      "cache": true
+    },
+    "test": {
+      "dependsOn": ["^build", "prisma-generate"],
+      "inputs": [
+        "test",
+        "^test",
+        "{workspaceRoot}/jest.preset.js",
+        {
+          "externalDependencies": []
+        }
+      ],
+      "cache": true
+    },
+    "lint": {
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.json",
+        "{workspaceRoot}/.eslintignore"
+      ],
+      "cache": true
+    },
+    "build-storybook": {
+      "inputs": [
+        "default",
+        "^production",
+        "{projectRoot}/.storybook/**/*",
+        "{projectRoot}/tsconfig.storybook.json"
+      ]
+    },
+    "e2e": {
+      "inputs": ["test", "^test"],
+      "cache": true
+    },
+    "build:sdk": {
+      "cache": true
+    },
+    "build:client": {
+      "cache": true
+    },
+    "build:pre": {
+      "cache": true
+    },
+    "rawr2": {
+      "cache": true
+    }
+  },
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals",
+      "{projectRoot}/.babelrc",
+      "!{projectRoot}/CHANGELOG.md",
+      "!{projectRoot}/dist/**/*",
+      "!{projectRoot}/package.json"
+    ],
+    "production": [
+      "default",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/src/test-setup.[jt]s",
+      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      "!{projectRoot}/.storybook/**/*",
+      "!{projectRoot}/tsconfig.storybook.json"
+    ],
+    "test": [
+      "default",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      "!{projectRoot}/.storybook/**/*",
+      "!{projectRoot}/tsconfig.storybook.json"
+    ],
+    "sharedGlobals": []
+  },
+  "pluginsConfig": {
+    "@nx/js": {
+      "analyzeSourceFiles": true
+    }
+  },
+  "generators": {
+    "@nx/react": {
+      "application": {
+        "babel": true
+      }
+    },
+    "@nx/next": {
+      "application": {
+        "style": "css",
+        "linter": "eslint"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+.mdc-top-app-bar {
+  background-color: #6200ee;
+  /* @alternate */
+  background-color: var(--mdc-theme-primary, #6200ee);
+  color: white;
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  z-index: 4;
+}
+

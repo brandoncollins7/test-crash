@@ -1,0 +1,1 @@
+export {frnt} from './frnt'
